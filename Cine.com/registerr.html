@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style0.css">
+    <link rel="stylesheet" href="fontawesome-free-6.0.0-web\css\all.min.css">
+    <link rel="stylesheet" href="bootstrap-5.0.2-dist/css/bootstrap-grid.min.css">
+    <title>Register Page</title>
+    <style>
+        .body{
+    /* border: 1px solid black; */
+    /* background-color: #333544; */
+    height: 700px;
+    width: 1440px;
+    margin: auto;
+}
+        p { 
+	padding:2px 
+    }
+#wrap { 
+	width:80%; 
+	padding:20px; 
+	margin:20px auto;
+	background:white;
+	border:1px solid #3399FF;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+}
+div#wrap2 {
+    border: 1px solid #FFF;
+    margin-bottom: 10px;
+    padding:15px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+h2.registration {
+    color: #3399ff;
+    display: block;
+    margin-bottom: 25px;
+    font-size: 40px;
+}
+form#register_form label { 
+	display:inline-block; /* with block na */
+	width:125px;
+	font-weight:bold;
+}
+form#register_form label:after { 
+	content:":"
+}
+form#register_form input[type='text'], input[type='password'] { 
+	display:inline-block; /* with block na */
+	width:200px;
+	border:1px solid #ccc;
+	margin:0;
+	padding:5px;
+    border-radius: 5px;
+}
+form#register_form select {
+    border: 1px solid #CCCCCC;
+    display: inline-block;
+    margin: 0;
+    padding: 5px 0;
+    width: 68px;
+    border-radius: 5px;
+}
+form#register_form input[name='submit'] { 
+	border:1px solid #3399FF;
+	background:#3399FF;
+	border-radius: 5px;
+	margin:10px;
+	color:#FFF;
+	padding:5px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+	font-weight:bold;
+    font-size: 20px;
+}
+form#register_form input[name='submit'] { 
+	cursor:pointer;
+}
+p.validate_msg {
+    border: 1px solid #FF0000;
+    font-weight: bold;
+    padding: 10px;
+	display:none;
+	margin-bottom:25px
+}
+span.validate  {
+	color:#F00;
+	padding-left:8px;
+	font-style:italic;
+}
+#terms{
+    display: none;
+    color:#FF0000;
+    padding: 10px;
+    margin-top: 5px;
+    background-color:lightyellow;
+    font-weight: 600;
+}
+    </style>
+
+<script>
+    jQuery(function($) 
+        {
+        var validation_holder;
+        $("form#register_form input[name='submit']").click(function() 
+            {
+            var validation_holder = 0;
+            var mname 			= $("form#register_form input[name='mname']").val();
+            var uname 			= $("form#register_form input[name='uname']").val();
+            var email 			= $("form#register_form input[name='email']").val();
+            var email_regex 	= /^[\w%_\-.\d]+@[\w.\-]+.[A-Za-z]{2,6}$/; // reg ex email check	
+            var password 		= $("form#register_form input[name='password']").val();
+            var repassword 		= $("form#register_form input[name='repassword']").val();
+            var mobile 			= $("form#register_form input[name='mobile']").val();
+            var mobile_regex		= /^[0-9]{4,20}$/; // reg ex mobile check	
+            var ag_grp 			= $("form#register_form select[name='ag_grp']").val(); // Age Group
+            var gender 			= $("form#register_form input[name='gender']");
+            var accept 			= $("form#register_form input[name='accept']");
+    
+    /* validation start */	
+            if(mname == "") 
+                {
+                $("span.val_mname").html("Member Name is required.").addClass('validate');
+                validation_holder = 1;
+                } 
+            else 
+                {
+                $("span.val_mname").html("");
+                }
+            if(uname == "") 
+                {
+                $("span.val_uname").html("Username is required.").addClass('validate');
+                validation_holder = 1;
+                } 
+            else 
+                {
+                $("span.val_uname").html("");
+                }
+            if(email == "") 
+                {
+                $("span.val_email").html("Email ID is required.").addClass('validate');
+                validation_holder = 1;
+                } 
+            else 
+                {
+                if(!email_regex.test(email))
+                    { // if invalid email
+                    $("span.val_email").html("Invalid Email!").addClass('validate');
+                    validation_holder = 1;
+                    } 
+                else 
+                    {
+                    $("span.val_email").html("");
+                    }
+                }
+            if(password == "") 
+                {
+                $("span.val_pass").html("Password is required.").addClass('validate');
+                validation_holder = 1;
+                } 
+            else 
+                {
+                $("span.val_pass").html("");
+                }
+            if(repassword == "") 
+                {
+                $("span.val_pass2").html("Retype Password is required.").addClass('validate');
+                validation_holder = 1;
+                } 
+            else 
+                {
+                if(password != repassword) 
+                    {
+                    $("span.val_pass2").html("Password does not match!").addClass('validate');
+                    validation_holder = 1;
+                    } 
+                else 
+                    {
+                    $("span.val_pass2").html("");
+                    }
+                }
+            if(mobile == "") 
+                {
+                $("span.val_mobile").html("Mobile No is required.").addClass('validate');
+                validation_holder = 1;
+                } 
+            else 
+                {
+                if(!mobile_regex.test(mobile))
+                    { // if invalid mobile
+                    $("span.val_mobile").html("Invalid mobile Number!").addClass('validate');
+                    validation_holder = 1;
+                    } 
+                else 
+                    {
+                    $("span.val_mobile").html("");
+                    }
+                }
+            if(ag_grp == "") 
+                {
+                $("span.val_aggrp").html("Select your Age Group.").addClass('validate');
+                validation_holder = 1;
+                } 
+            else 
+                {
+                $("span.val_aggrp").html("");
+                }
+            if(gender.is(':checked') == false) 
+                {
+                $("span.val_gen").html("Select your gender.").addClass('validate');
+                validation_holder = 1;
+                } 
+            else 
+                {
+                $("span.val_gen").html("");
+                }
+            if(accept.is(':checked') == false) 
+                {
+                $("span.val_accept").html("You have to accept Terms.").addClass('validate');
+                validation_holder = 1;
+                } 
+            else 
+                {
+                $("span.val_accept").html("");
+                }    
+            if(validation_holder == 1) 
+                { // if have a field is blank, return false
+                $("p.validate_msg").slideDown("slow");
+                return false;
+                }  
+            if (validation_holder == 0) // else return true
+                {
+                alert(mname + ", You have registered successfully for " + ag_grp);    
+                }
+            /* validation end */	
+            }); // click end 
+        }); // jQuery End    
+    $(document).ready(function() {
+                $('input[type="checkbox"]').click(function(){
+                var inputValue = $(this).attr("value");
+                $("#" + inputValue).toggle();
+            });
+        });
+
+</script>
+</head>
+<body>
+    <div class="body">
+        <div id="nav">
+            <h3 class="marg" id="logo">Cine.com</h3>
+                <input type="search" placeholder="Search for Movies, Events and Sports" name=""id="search" class="marg">
+                <select name="location" id="loc" class="marg">
+                    <option value="">Surat</option>
+                    <option value="">Ahemdabad</option>
+                    <option value="">Delhi</option>
+                    <option value="">Banglor</option>
+                    <option value="">Mumbai</option>
+                </select>
+                <a href="#"><i class="fa-solid fa-user" id="user" class="marg"></i></a>
+        </div> 
+        <div id="nav1">
+            <ul>
+                <a href="index0.html" class="nav1"><li>Movies</li></a>
+                <a href="index0.html" class="nav1"><li>Hollywood</li></a>
+                <a href="index0.html" class="nav1"><li>Online Streaming</li></a>
+                <a href="#" class="nav1"><li>Contect</li></a>
+                <a href="#" class="nav1"><li>About us</li></a>
+            </ul>
+        </div>
+        <div class="main-content">
+            <div id="wrap"> <!--wrap start-->
+                <div id="wrap2">  <!--wrap2 start-->
+               
+                   <h2 class="registration">Cine.com Registration</h2> 
+                
+                <form id="register_form" method="post">
+                    
+                        <p class="validate_msg">Resolve the following issues!</p>
+                        
+                        <p> <label for="name">Member Name</label> <input name="mname" type="text" /> <span class="val_mname"></span> </p> 
+                        <p> <label for="email">Your Email</label> <input name="email" type="text" /> <span class="val_email"></span> </p>
+                        <p> <label for="uname">User Name</label>  <input name="uname" type="text" />  <span class="val_uname"></span> </p>
+                        <p> <label for="password">Password</label>  <input name="password" type="password" /> <span class="val_pass"></span> </p>
+                        <p> <label for="repassword">Retype Password</label>  <input name="repassword" type="password" /> <span class="val_pass2"></span> </p>
+                        <p> <label for="mobile">Mobile No.</label> <input name="mobile" type="text" /> <span class="val_mobile"></span> </p>
+                        
+                        <p> <label for="ag-grp">Age Group</label>  
+                                        <select name="ag_grp">
+                                            <option value="">Age</option>
+                                            <option value="su12">Student (Age Under 12 Yr)</option>
+                                            <option value="su18">Student (Age Under 18 Yr)</option>
+                                            <option value="su24">Student (Age Under 24 Yr)</option>
+                                            <option value="c50">Citizen (Age Under 50 Yr)</option>
+                                            <option value="sc50+">Sr. Citizer (Age anove 50 Yr)</option>
+                                        </select>
+                        <span class="val_aggrp"></span> </p>
+                        
+                        <p> <label for="gender">Gender</label>  <input name="gender" type="radio" value="m" /> Male <input name="gender" type="radio" value="f" /> Female <span class="val_gen"></span> </p>
+                        <p> <label for="accept">Terms</label>  <input name="accept" type="checkbox" value="terms" id="accept" /> I ACCEPT <span class="val_accept"></span> <br>
+                        </p>
+                        
+                        <a href="index0.html"><input type="submit" name="submit" value="Register"></a>
+                </form>
+               
+                </div>  <!--wrap2 end-->
+            </div>  <!--wrap start-->
+        
+            
+            <!-- footer area start-->
+              <footer>
+                   <div class="footer-area">
+                        <p>Copyright 2022 &copy; Satyam Tank pvt. ltd. All Rights Reserved</p>
+                   </div>
+              </footer>
+    <!-- footer area end-->
+        </div>
+    </div>
+</body>
+</html>
